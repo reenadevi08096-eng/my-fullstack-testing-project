@@ -1,4 +1,4 @@
-const Item = require('../models/Item');
+const Item = require('../models/item');
 
 // GET all items
 exports.getItems = async (req, res) => {
@@ -6,6 +6,7 @@ exports.getItems = async (req, res) => {
     const items = await Item.find();
     res.json(items);
   } catch (error) {
+    console.error("GET ITEMS ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -19,6 +20,7 @@ exports.createItem = async (req, res) => {
     await newItem.save();
     res.status(201).json(newItem);
   } catch (error) {
+    console.error("CREATE ITEM ERROR:", error);
     res.status(400).json({ message: error.message });
   }
 };
@@ -29,6 +31,7 @@ exports.deleteItem = async (req, res) => {
     await Item.findByIdAndDelete(req.params.id);
     res.json({ message: 'Item deleted successfully' });
   } catch (error) {
+    console.error("DELETE ITEM ERROR:", error);
     res.status(500).json({ message: error.message });
   }
 };
